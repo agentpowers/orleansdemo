@@ -35,7 +35,7 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-			app.UseOrleansDashboard(new OrleansDashboard.DashboardOptions { BasePath = "/dashboard"});
+			//app.UseOrleansDashboard();
             app.UseMvc();
         }
     }

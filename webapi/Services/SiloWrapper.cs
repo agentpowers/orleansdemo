@@ -10,6 +10,8 @@ namespace WebApi.Services
 {
 	public class SiloWrapper : IHostedService
 	{
+		const string connString = @"User ID=agentpowers;Password=5544338;Host=localhost;Port=5432;Database=orleans;
+Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;";
 		private readonly ISiloHost _silo;
 		public readonly IClusterClient Client;
 
@@ -17,21 +19,29 @@ namespace WebApi.Services
 		{
 			_silo = new SiloHostBuilder().UseLocalhostClustering()
 				.ConfigureApplicationParts(parts =>
-					parts.AddApplicationPart(typeof(Grains.IUserGrain).Assembly).WithReferences()).EnableDirectClient()
-					.AddMongoDBGrainStorageAsDefault(options =>
-					{
-						options.ConnectionString = "mongodb://mongo01/OrleansTestApp";
-					})
-					.ConfigureLogging(x =>
-					{
-						x.AddConsole();
-						x.SetMinimumLevel(LogLevel.Warning);
-					})
-					.UseDashboard(x =>
-					{
-						x.HostSelf = false;
-					})
-					.UseTransactions().Build();
+					parts.AddApplicationPart(typeof(Grains.IUserGrain).Assembly).WithReferences())
+				.AddAdoNetGrainStorageAsDefault(options => 
+				{
+					options.Invariant = "Npgsql";
+					options.ConnectionString = "host=localhost;database=orleans;password=5544338;username=agentpowers";
+					options.UseJsonFormat = true;
+				})
+				// .AddMongoDBGrainStorageAsDefault(options =>
+				// {
+				// 	options.ConnectionString = "mongodb://mongo01/OrleansTestApp";
+				// })
+				.ConfigureLogging(x =>
+				{
+					x.AddConsole();
+					x.SetMinimumLevel(LogLevel.Warning);
+				})
+				.UseDashboard(x =>
+				{
+					x.HostSelf = false;
+					// x.BasePath = "/dashboard";
+				})
+				.UseTransactions()
+				.Build();
 
 			Client = _silo.Services.GetRequiredService<IClusterClient>();
 		}

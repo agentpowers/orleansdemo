@@ -25,14 +25,14 @@ namespace WebApi.Controllers
 			return await userGrain.GetInfo();
 		}
 
-		[HttpGet("[action]/{id}")]
+		[HttpPut("[action]/{id}")]
 		public async Task<object> UpdateInfo(long id, string name, int age)
 		{
 			var userGrain = _client.GetGrain<IUserGrain>(id);
 			return await userGrain.UpdateInfo(new UserInfo { Name = name, Age = age });
 		}
 
-		[HttpGet("[action]")]
+		[HttpPut("[action]")]
 		public async Task<object> ATM(long from, long to, uint amount)
 		{
 			var atm = _client.GetGrain<IATMGrain>(0);

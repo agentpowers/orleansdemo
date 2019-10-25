@@ -14,9 +14,9 @@ namespace WebApi.Grains
 			await base.OnActivateAsync();
 		}
 
-		public Task<UserInfo> GetInfo()
+		public ValueTask<UserInfo> GetInfo()
         {		
-			return Task.FromResult(State);
+			return new ValueTask<UserInfo>(State);
         }
 
 		public async Task<UserInfo> UpdateInfo(UserInfo info)
