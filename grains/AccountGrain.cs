@@ -3,11 +3,9 @@ using System.Threading.Tasks;
 using Orleans;
 using Orleans.CodeGeneration;
 using Orleans.Transactions.Abstractions;
-using WebApi.Models;
 
-[assembly: GenerateSerializer(typeof(Balance))]
-
-namespace WebApi.Grains
+[assembly: GenerateSerializer(typeof(grains.Balance))]
+namespace grains
 {
     public class AccountGrain : Grain, IAccountGrain
     {

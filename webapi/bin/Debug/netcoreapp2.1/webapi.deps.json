@@ -32,7 +32,8 @@
           "Microsoft.Orleans.Transactions": "2.4.3",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.9.5",
           "Npgsql": "4.1.1",
-          "OrleansDashboard": "2.4.5"
+          "OrleansDashboard": "2.4.5",
+          "grains": "1.0.0"
         },
         "runtime": {
           "webapi.dll": {}
@@ -578,6 +579,18 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
+        }
+      },
+      "grains/1.0.0": {
+        "dependencies": {
+          "Microsoft.Orleans.OrleansRuntime": "2.4.3",
+          "Microsoft.Orleans.Transactions": "2.4.3"
+        },
+        "runtime": {
+          "grains.dll": {}
+        },
+        "compile": {
+          "grains.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3893,6 +3906,11 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "grains/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "type": "package",

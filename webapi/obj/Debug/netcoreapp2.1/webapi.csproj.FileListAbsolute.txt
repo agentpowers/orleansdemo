@@ -15,3 +15,6 @@
 /Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/obj/Debug/netcoreapp2.1/webapi.RazorTargetAssemblyInfo.cache
 /Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/obj/Debug/netcoreapp2.1/webapi.dll
 /Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/obj/Debug/netcoreapp2.1/webapi.pdb
+/Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/bin/Debug/netcoreapp2.1/grains.dll
+/Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/bin/Debug/netcoreapp2.1/grains.pdb
+/Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/obj/Debug/netcoreapp2.1/webapi.csproj.CopyComplete

@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Orleans;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebApi.Grains;
-using WebApi.Models;
+using grains;
 
 namespace WebApi.Controllers
 {

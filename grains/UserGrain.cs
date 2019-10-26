@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using Orleans;
 using Orleans.Providers;
-using WebApi.Models;
 
-namespace WebApi.Grains
+namespace grains
 {
 
 	public class UserGrain:Grain<UserInfo>,IUserGrain

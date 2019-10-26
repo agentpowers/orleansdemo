@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Orleans;
 
-namespace WebApi.Grains
+namespace grains
 {
     public interface IATMGrain : IGrainWithIntegerKey
     {

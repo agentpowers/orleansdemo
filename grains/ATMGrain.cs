@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Orleans;
 using Orleans.Concurrency;
 
-namespace WebApi.Grains
+namespace grains
 {
     [StatelessWorker]
     public class ATMGrain : Grain, IATMGrain

@@ -4,6 +4,75 @@
     "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/webapi.csproj": {}
   },
   "projects": {
+    "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/grains/grains.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/grains/grains.csproj",
+        "projectName": "grains",
+        "projectPath": "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/grains/grains.csproj",
+        "packagesPath": "/Users/agentpowers/.nuget/packages/",
+        "outputPath": "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/grains/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/agentpowers/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.Orleans.CodeGenerator.MSBuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Orleans.OrleansRuntime": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Orleans.Transactions": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/webapi/webapi.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -20,14 +89,18 @@
           "/Users/agentpowers/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.1"
+          "netcoreapp3.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.1": {
-            "projectReferences": {}
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/grains/grains.csproj": {
+                "projectPath": "/Users/agentpowers/Development/NetCore/orleans/orleansdemo/grains/grains.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -37,41 +110,25 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.1": {
+        "netcoreapp3.0": {
           "dependencies": {
-            "Microsoft.AspNetCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.1, )",
-              "autoReferenced": true
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
-            },
             "Microsoft.Orleans.CodeGenerator.MSBuild": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.4.3, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.Orleans.OrleansRuntime": {
               "target": "Package",
-              "version": "[2.4.3, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.Orleans.Persistence.AdoNet": {
               "target": "Package",
-              "version": "[2.4.3, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.Orleans.Transactions": {
               "target": "Package",
-              "version": "[2.4.3, )"
-            },
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
-              "target": "Package",
-              "version": "[1.9.5, )"
+              "version": "[3.0.0, )"
             },
             "Npgsql": {
               "target": "Package",
@@ -79,7 +136,7 @@
             },
             "OrleansDashboard": {
               "target": "Package",
-              "version": "[2.4.5, )"
+              "version": "[3.0.3, )"
             }
           },
           "imports": [
@@ -92,6 +149,14 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }

@@ -17,9 +17,16 @@ Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;";
 
 		public SiloWrapper()
 		{
-			_silo = new SiloHostBuilder().UseLocalhostClustering()
+			_silo = GetSiloHost();
+			Client = _silo.Services.GetRequiredService<IClusterClient>();
+		}
+
+		private static ISiloHost GetSiloHost() 
+		{
+			return new SiloHostBuilder()
+				.UseLocalhostClustering()
 				.ConfigureApplicationParts(parts =>
-					parts.AddApplicationPart(typeof(Grains.IUserGrain).Assembly).WithReferences())
+					parts.AddApplicationPart(typeof(grains.IUserGrain).Assembly).WithReferences())
 				.AddAdoNetGrainStorageAsDefault(options => 
 				{
 					options.Invariant = "Npgsql";
@@ -38,14 +45,10 @@ Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;";
 				.UseDashboard(x =>
 				{
 					x.HostSelf = false;
-					// x.BasePath = "/dashboard";
 				})
 				.UseTransactions()
 				.Build();
-
-			Client = _silo.Services.GetRequiredService<IClusterClient>();
 		}
-
 		public async Task StartAsync(CancellationToken cancellationToken)
 		{
 			await _silo.StartAsync(cancellationToken);
