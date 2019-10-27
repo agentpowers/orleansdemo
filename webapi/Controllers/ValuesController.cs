@@ -32,7 +32,7 @@ namespace WebApi.Controllers
 		}
 
 		[HttpPut("[action]")]
-		public async Task<object> ATM(long from, long to, uint amount)
+		public async Task<object> Transfer(long from, long to, uint amount)
 		{
 			var atm = _client.GetGrain<IATMGrain>(0);
 			
@@ -52,6 +52,28 @@ namespace WebApi.Controllers
 			{
 				["User" + from + " Balance"] = fromBalance,
 				["User" + to + " Balance"] = toBalance,
+			};
+		}
+
+		[HttpPut("[action]")]
+		public async Task<object> Deposit(long id, uint amount)
+		{
+			var atm = _client.GetGrain<IATMGrain>(0);
+			
+			try
+			{
+				await atm.Depoist(id, amount);
+			}
+			catch (Exception ex)when(ex.InnerException is InvalidOperationException)
+			{
+				return ex.InnerException.Message;
+			}
+
+			var balance = await _client.GetGrain<IAccountGrain>(id).GetBalance();
+			
+			return new Dictionary<string, uint>()
+			{
+				["User" + id + " Balance"] = balance,
 			};
 		}
 

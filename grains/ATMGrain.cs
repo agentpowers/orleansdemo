@@ -14,5 +14,10 @@ namespace grains
                 this.GrainFactory.GetGrain<IAccountGrain>(fromAccount).Withdraw(amountToTransfer),
                 this.GrainFactory.GetGrain<IAccountGrain>(toAccount).Deposit(amountToTransfer));
         }
+
+        Task IATMGrain.Depoist(long account, uint amount)
+        {
+            return this.GrainFactory.GetGrain<IAccountGrain>(account).Deposit(amount);
+        }
     }
 }
