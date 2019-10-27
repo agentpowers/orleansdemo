@@ -23,6 +23,8 @@ namespace WebApi
             services.AddSingleton<IHostedService>(x=>x.GetRequiredService<SiloWrapper>());
             services.AddControllers();
             services.AddSingleton(x => x.GetRequiredService<SiloWrapper>().Client);
+            // add client factory
+            services.AddSingleton<IGrainFactory>(x => x.GetRequiredService<SiloWrapper>().Client);
 			services.AddServicesForSelfHostedDashboard();
 		}
 
@@ -33,6 +35,11 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
+            
+            // init siloWrapper before dashboard middleware start(erros out otherwise)
+            var siloWrapper = app.ApplicationServices.GetRequiredService<SiloWrapper>();
+            siloWrapper.Init().GetAwaiter().GetResult();
+
 			app.UseOrleansDashboard(new OrleansDashboard.DashboardOptions { BasePath = "/dashboard"});
             app.UseEndpoints(endpoints =>
             {
