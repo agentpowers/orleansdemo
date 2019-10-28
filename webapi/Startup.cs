@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Orleans;
-using WebApi.Services;
 
 namespace WebApi
 {
@@ -19,12 +18,9 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<SiloWrapper>();
-            services.AddSingleton<IHostedService>(x=>x.GetRequiredService<SiloWrapper>());
+            // add controllers
             services.AddControllers();
-            services.AddSingleton(x => x.GetRequiredService<SiloWrapper>().Client);
-            // add client factory
-            services.AddSingleton<IGrainFactory>(x => x.GetRequiredService<SiloWrapper>().Client);
+            // add services for dashboard
 			services.AddServicesForSelfHostedDashboard();
 		}
 
@@ -35,12 +31,9 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-            
-            // init siloWrapper before dashboard middleware start(erros out otherwise)
-            var siloWrapper = app.ApplicationServices.GetRequiredService<SiloWrapper>();
-            siloWrapper.Init().GetAwaiter().GetResult();
 
 			app.UseOrleansDashboard(new OrleansDashboard.DashboardOptions { BasePath = "/dashboard"});
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
