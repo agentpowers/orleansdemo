@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApi.Models
+namespace grains
 {
 	[Serializable]
 	public class Balance

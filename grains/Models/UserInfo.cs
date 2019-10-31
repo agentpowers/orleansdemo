@@ -1,4 +1,4 @@
-namespace WebApi.Models
+namespace grains
 {
     public class UserInfo
     {

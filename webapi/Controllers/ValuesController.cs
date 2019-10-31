@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Orleans;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebApi.Grains;
-using WebApi.Models;
+using grains;
 
 namespace WebApi.Controllers
 {
@@ -25,15 +24,15 @@ namespace WebApi.Controllers
 			return await userGrain.GetInfo();
 		}
 
-		[HttpGet("[action]/{id}")]
+		[HttpPut("[action]/{id}")]
 		public async Task<object> UpdateInfo(long id, string name, int age)
 		{
 			var userGrain = _client.GetGrain<IUserGrain>(id);
 			return await userGrain.UpdateInfo(new UserInfo { Name = name, Age = age });
 		}
 
-		[HttpGet("[action]")]
-		public async Task<object> ATM(long from, long to, uint amount)
+		[HttpPut("[action]")]
+		public async Task<object> Transfer(long from, long to, uint amount)
 		{
 			var atm = _client.GetGrain<IATMGrain>(0);
 			
@@ -53,6 +52,28 @@ namespace WebApi.Controllers
 			{
 				["User" + from + " Balance"] = fromBalance,
 				["User" + to + " Balance"] = toBalance,
+			};
+		}
+
+		[HttpPut("[action]")]
+		public async Task<object> Deposit(long id, uint amount)
+		{
+			var atm = _client.GetGrain<IATMGrain>(0);
+			
+			try
+			{
+				await atm.Depoist(id, amount);
+			}
+			catch (Exception ex)when(ex.InnerException is InvalidOperationException)
+			{
+				return ex.InnerException.Message;
+			}
+
+			var balance = await _client.GetGrain<IAccountGrain>(id).GetBalance();
+			
+			return new Dictionary<string, uint>()
+			{
+				["User" + id + " Balance"] = balance,
 			};
 		}
 

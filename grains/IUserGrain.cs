@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using Orleans;
-using WebApi.Models;
 
-namespace WebApi.Grains
+namespace grains
 {
     public interface IUserGrain:IGrainWithIntegerKey
     {

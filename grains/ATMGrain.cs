@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Orleans;
 using Orleans.Concurrency;
 
-namespace WebApi.Grains
+namespace grains
 {
     [StatelessWorker]
     public class ATMGrain : Grain, IATMGrain
@@ -13,6 +13,11 @@ namespace WebApi.Grains
             return Task.WhenAll(
                 this.GrainFactory.GetGrain<IAccountGrain>(fromAccount).Withdraw(amountToTransfer),
                 this.GrainFactory.GetGrain<IAccountGrain>(toAccount).Deposit(amountToTransfer));
+        }
+
+        Task IATMGrain.Depoist(long account, uint amount)
+        {
+            return this.GrainFactory.GetGrain<IAccountGrain>(account).Deposit(amount);
         }
     }
 }
