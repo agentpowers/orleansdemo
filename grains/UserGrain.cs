@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 using Orleans;
 using Orleans.Providers;
-using WebApi.Models;
 
-namespace WebApi.Grains
+namespace grains
 {
 
 	public class UserGrain:Grain<UserInfo>,IUserGrain
@@ -14,9 +13,9 @@ namespace WebApi.Grains
 			await base.OnActivateAsync();
 		}
 
-		public Task<UserInfo> GetInfo()
+		public ValueTask<UserInfo> GetInfo()
         {		
-			return Task.FromResult(State);
+			return new ValueTask<UserInfo>(State);
         }
 
 		public async Task<UserInfo> UpdateInfo(UserInfo info)
