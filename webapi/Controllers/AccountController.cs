@@ -8,31 +8,17 @@ using grains;
 namespace WebApi.Controllers
 {
 	[Route("api/[controller]")]
-	public class ValuesController : Controller
+	public class AccountController : Controller
 	{
 		private readonly IClusterClient _client;
 
-		public ValuesController(IClusterClient client)
+		public AccountController(IClusterClient client)
 		{
 			_client = client;
 		}
 
-		[HttpGet("[action]/{id}")]
-		public async Task<object> GetInfo(long id)
-		{
-			var userGrain = _client.GetGrain<IUserGrain>(id);
-			return await userGrain.GetInfo();
-		}
-
-		[HttpPut("[action]/{id}")]
-		public async Task<object> UpdateInfo(long id, string name, int age)
-		{
-			var userGrain = _client.GetGrain<IUserGrain>(id);
-			return await userGrain.UpdateInfo(new UserInfo { Name = name, Age = age });
-		}
-
 		[HttpPut("[action]")]
-		public async Task<object> Transfer(long from, long to, uint amount)
+		public async Task<ActionResult> Transfer(long from, long to, uint amount)
 		{
 			var atm = _client.GetGrain<IATMGrain>(0);
 			
@@ -42,21 +28,21 @@ namespace WebApi.Controllers
 			}
 			catch (Exception ex)when(ex.InnerException is InvalidOperationException)
 			{
-				return ex.InnerException.Message;
+				return BadRequest(ex.InnerException.Message);
 			}
 
 			var fromBalance = await _client.GetGrain<IAccountGrain>(from).GetBalance();
 			var toBalance = await _client.GetGrain<IAccountGrain>(to).GetBalance();
 			
-			return new Dictionary<string, uint>()
+			return Ok(new Dictionary<string, uint>()
 			{
 				["User" + from + " Balance"] = fromBalance,
 				["User" + to + " Balance"] = toBalance,
-			};
+			});
 		}
 
 		[HttpPut("[action]")]
-		public async Task<object> Deposit(long id, uint amount)
+		public async Task<ActionResult> Deposit(long id, uint amount)
 		{
 			var atm = _client.GetGrain<IATMGrain>(0);
 			
@@ -66,19 +52,19 @@ namespace WebApi.Controllers
 			}
 			catch (Exception ex)when(ex.InnerException is InvalidOperationException)
 			{
-				return ex.InnerException.Message;
+				return BadRequest(ex.InnerException.Message);
 			}
 
 			var balance = await _client.GetGrain<IAccountGrain>(id).GetBalance();
 			
-			return new Dictionary<string, uint>()
+			return Ok(new Dictionary<string, uint>()
 			{
 				["User" + id + " Balance"] = balance,
-			};
+			});
 		}
 
 		[HttpGet("[action]/{id}")]
-		public async Task<object> GetAccountInfo(long id)
+		public async Task<uint> Balance(long id)
 		{
 			var userGrain = _client.GetGrain<IUserGrain>(id);
 			return await userGrain.GetBalance();

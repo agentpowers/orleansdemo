@@ -5,6 +5,7 @@
 ## directclient
   
 ## postgres-db
+
 1. create a database with name 'orleans'
 2. create a user with name 'orleans' and password 'orleans'
 3. run this script - https://github.com/dotnet/orleans/blob/master/src/AdoNet/Shared/PostgreSQL-Main.sql
